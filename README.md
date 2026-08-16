@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 # Sai Tailors Management System
 
 A Flask + SQLite starter implementation based on the uploaded UI reference.
@@ -57,3 +58,7 @@ Username: `admin`
 Password: `sai123`
 
 Change the credentials and Flask secret before deploying to production.
+=======
+# sai_tailors_starter
+a dedicated software to manage a tailors shop
+>>>>>>> 8b32a3b060a77c42f9291ba0e05f58cf7a7eb5fa
