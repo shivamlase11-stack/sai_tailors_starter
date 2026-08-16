@@ -1,0 +1,37 @@
+{% extends "base.html" %}
+{% block content %}
+<div class="page">
+    <div class="page-heading">
+        <div><div class="eyebrow">ORDER MANAGEMENT</div><h1>{{ title }}</h1></div>
+        <a href="{{ url_for('new_customer') }}" class="gold-btn">＋ New Customer</a>
+    </div>
+    <div class="table-card">
+        <table>
+            <thead><tr><th>Receipt</th><th>Customer</th><th>Mobile</th><th>Delivery</th><th>Total</th><th>Paid</th><th>Balance</th><th>Status</th><th></th></tr></thead>
+            <tbody>
+            {% for order in orders %}
+            <tr>
+                <td><strong>{{ order.receipt_no }}</strong></td>
+                <td>{{ order.name }}</td>
+                <td>{{ order.mobile }}</td>
+                <td>{{ order.delivery_date }}</td>
+                <td>₹{{ "%.0f"|format(order.total_amount) }}</td>
+                <td>₹{{ "%.0f"|format(order.paid_amount) }}</td>
+                <td>₹{{ "%.0f"|format(order.balance) }}</td>
+                <td><span class="status {{ order.status|lower }}">{{ order.status }}</span></td>
+                <td>
+                    {% if order.status != 'Completed' %}
+                    <form method="post" action="{{ url_for('complete_order', order_id=order.id) }}">
+                        <button class="mini-btn">Mark Done</button>
+                    </form>
+                    {% endif %}
+                </td>
+            </tr>
+            {% else %}
+            <tr><td colspan="9" class="empty-state">No orders found.</td></tr>
+            {% endfor %}
+            </tbody>
+        </table>
+    </div>
+</div>
+{% endblock %}

@@ -1,0 +1,17 @@
+{% extends "base.html" %}
+{% block content %}
+<div class="page">
+    <div class="page-heading"><div><div class="eyebrow">REPORT</div><h1>{{ title }}</h1></div></div>
+    <div class="report-total"><span>Total</span><strong>₹{{ "%.0f"|format(value) }}</strong></div>
+    <div class="table-card">
+        <table>
+            <thead><tr>{% for col in columns %}<th>{{ col.replace('_',' ')|title }}</th>{% endfor %}</tr></thead>
+            <tbody>
+            {% for row in rows %}
+            <tr>{% for col in columns %}<td>{{ row[col] }}</td>{% endfor %}</tr>
+            {% else %}<tr><td colspan="{{ columns|length }}" class="empty-state">No data available.</td></tr>{% endfor %}
+            </tbody>
+        </table>
+    </div>
+</div>
+{% endblock %}

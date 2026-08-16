@@ -1,0 +1,65 @@
+{% extends "base.html" %}
+{% block content %}
+<section class="hero">
+    <div class="hero-image"></div>
+    <div class="hero-overlay"></div>
+    <div class="hero-content">
+        <div class="eyebrow">SAI TAILORS</div>
+        <h1>Find a Customer</h1>
+        <div class="search-box">
+            <span>⌕</span>
+            <input id="customerSearch" placeholder="Search by name, phone, or order ID..." autocomplete="off">
+        </div>
+        <div class="search-results" id="searchResults"></div>
+    </div>
+</section>
+
+<section class="workspace">
+    <div class="section-heading">
+        <h2>Today's Queue</h2>
+        <p>Overview of active workshop tasks</p>
+    </div>
+
+    <div class="stats-row">
+        <div class="stat-card">
+            <span class="stat-icon">♧</span>
+            <div class="stat-number">{{ deliveries|length }}</div>
+            <div class="stat-label">PICKUPS TODAY</div>
+        </div>
+        <div class="stat-card">
+            <span class="stat-icon">◫</span>
+            <div class="stat-number">{{ recent|length }}</div>
+            <div class="stat-label">RECENT ORDERS</div>
+        </div>
+        <div class="quick-actions">
+            <a href="{{ url_for('new_customer') }}" class="dark-btn">♧ &nbsp; Add Customer</a>
+            <a href="{{ url_for('new_customer') }}" class="light-btn">✂ &nbsp; Record Measurements</a>
+        </div>
+    </div>
+
+    <div class="content-grid">
+        <div>
+            <h2 class="subheading">Recent Order Slips</h2>
+            <div class="order-list">
+                {% for order in recent %}
+                <div class="order-row">
+                    <span class="receipt">{{ order.receipt_no }}</span>
+                    <div class="order-main">
+                        <strong>{{ order.name }}</strong>
+                        <span>Tailoring order • Delivery {{ order.delivery_date }}</span>
+                    </div>
+                    <span class="status {{ order.status|lower }}">{{ order.status }}</span>
+                </div>
+                {% else %}
+                <div class="empty-state">No orders yet. Start with New Order.</div>
+                {% endfor %}
+            </div>
+        </div>
+        <div class="photo-card">
+            <div class="photo-placeholder">
+                <span>TAILORING<br>STUDIO</span>
+            </div>
+        </div>
+    </div>
+</section>
+{% endblock %}

@@ -1,0 +1,233 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>{{ title or "Sai Tailors" }}</title>
+
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+
+    <link
+        href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@500;600;700&family=Inter:wght@400;500;600&display=swap"
+        rel="stylesheet"
+    >
+
+    <!-- Main CSS -->
+    <link
+        rel="stylesheet"
+        href="{{ url_for('static', filename='css/style.css') }}"
+    >
+</head>
+
+<body>
+
+<div class="app-shell">
+
+    <!-- =========================
+         SIDEBAR
+    ========================== -->
+    <aside class="sidebar">
+
+        <!-- BRAND -->
+        <div class="brand">
+
+            <div class="logo-mark">
+                ST
+            </div>
+
+            <div class="brand-name">
+                Sai Tailors
+            </div>
+
+            <div class="brand-sub">
+                ARTISANAL MANAGEMENT
+            </div>
+
+        </div>
+
+
+        <!-- NAVIGATION -->
+        <nav class="nav">
+
+            <a
+                href="{{ url_for('home') }}"
+                class="{% if request.endpoint == 'home' %}active{% endif %}"
+            >
+                ▦
+                <span>Dashboard</span>
+            </a>
+
+
+            <a
+                href="{{ url_for('orders') }}"
+                class="{% if request.endpoint == 'orders' %}active{% endif %}"
+            >
+                ✂
+                <span>Orders</span>
+            </a>
+
+
+            <a href="{{ url_for('home') }}#customers">
+                ♧
+                <span>Customers</span>
+            </a>
+
+
+            <a href="{{ url_for('weekly_sales') }}">
+                ▣
+                <span>Analytics</span>
+            </a>
+
+
+            <a href="{{ url_for('expenses') }}">
+                ▤
+                <span>Expenses</span>
+            </a>
+
+        </nav>
+
+
+        <!-- SIDEBAR BOTTOM -->
+        <div class="sidebar-bottom">
+
+            <a
+                class="new-order"
+                href="{{ url_for('new_customer') }}"
+            >
+                ＋ New Order
+            </a>
+
+
+            <a href="{{ url_for('dashboard') }}">
+                ⚙
+                <span>Settings</span>
+            </a>
+
+
+            <a href="{{ url_for('logout') }}">
+                ⇥
+                <span>Logout</span>
+            </a>
+
+        </div>
+
+    </aside>
+
+
+    <!-- =========================
+         MAIN CONTENT
+    ========================== -->
+    <main class="main">
+
+
+        <!-- =========================
+             TOP BAR
+        ========================== -->
+        <header class="topbar">
+
+            <div></div>
+
+
+            <!-- NOTIFICATION -->
+            <div class="notification-wrap">
+
+                <button
+                    class="notification-btn"
+                    id="notificationBtn"
+                    aria-label="Today's deliveries"
+                    type="button"
+                >
+
+                    ♧
+
+                    {% if notification_count %}
+                        <span class="badge">
+                            {{ notification_count }}
+                        </span>
+                    {% endif %}
+
+                </button>
+
+
+                <!-- NOTIFICATION DROPDOWN -->
+                <div
+                    class="notification-panel"
+                    id="notificationPanel"
+                >
+
+                    <div class="panel-title">
+                        Today's Deliveries
+                    </div>
+
+
+                    {% if notification_count %}
+
+                        <div id="deliveryList">
+                            Loading deliveries...
+                        </div>
+
+                    {% else %}
+
+                        <p class="muted">
+                            No deliveries scheduled for today.
+                        </p>
+
+                    {% endif %}
+
+                </div>
+
+            </div>
+
+        </header>
+
+
+        <!-- =========================
+             FLASH MESSAGES
+        ========================== -->
+
+        {% with messages = get_flashed_messages(with_categories=true) %}
+
+            {% if messages %}
+
+                {% for category, message in messages %}
+
+                    <div class="flash {{ category }}">
+                        {{ message }}
+                    </div>
+
+                {% endfor %}
+
+            {% endif %}
+
+        {% endwith %}
+
+
+        <!-- =========================
+             PAGE CONTENT
+        ========================== -->
+
+        {% block content %}
+
+        {% endblock %}
+
+
+    </main>
+
+</div>
+
+
+<!-- =========================
+     JAVASCRIPT
+========================== -->
+
+<script
+    src="{{ url_for('static', filename='js/app.js') }}"
+></script>
+
+</body>
+
+</html>

@@ -1,0 +1,82 @@
+{% extends "base.html" %}
+{% block content %}
+<div class="page receipt-page">
+    <div class="receipt-paper">
+        <div class="receipt-header">
+            <div></div>
+            <div>
+                <div class="eyebrow">SAI TAILORS</div>
+                <h1>New Customer</h1>
+            </div>
+            <div></div>
+        </div>
+
+        <form method="post" id="orderForm">
+            <div class="receipt-meta">
+                <span>Receipt No: <strong>Auto-generated</strong></span>
+                <span>Date: <strong>{{ today }}</strong></span>
+            </div>
+
+            <div class="form-grid two">
+                <div><label>Name</label><input name="name" required></div>
+                <div><label>Mobile No.</label><input name="mobile" required inputmode="numeric"></div>
+            </div>
+
+            <div class="stitch-line"></div>
+
+            <div class="garment-toggle">
+                <label class="toggle-card"><input type="checkbox" id="shirtToggle" checked> <span>Shirt</span></label>
+                <label class="toggle-card"><input type="checkbox" id="pantToggle"> <span>Pant</span></label>
+            </div>
+
+            <section id="shirtSection" class="garment-section">
+                <div class="section-title"><h2>Shirt</h2><span>₹350 each</span></div>
+                <div class="form-grid two">
+                    <div>
+                        <label>Shirt Type</label>
+                        <select name="shirt_type">
+                            <option>Apple Cut</option>
+                            <option>Bhu Shirt</option>
+                            <option>Guru Shirt</option>
+                            <option>Kurta</option>
+                        </select>
+                    </div>
+                    <div><label>Quantity</label><input name="shirt_qty" id="shirtQty" type="number" min="0" value="1"></div>
+                </div>
+                <h3>Shirt Measurements</h3>
+                <div class="measurement-grid">
+                    {% for field in ["Shoulder","Chest","Shirt Waist","Front","Sleeve","Cuff","Collar"] %}
+                    <div><label>{{ field }}</label><input name="{{ field|lower|replace(' ','_') }}"></div>
+                    {% endfor %}
+                </div>
+            </section>
+
+            <section id="pantSection" class="garment-section hidden">
+                <div class="section-title"><h2>Pant</h2><span>₹350 each</span></div>
+                <div><label>Quantity</label><input name="pant_qty" id="pantQty" type="number" min="0" value="0"></div>
+                <h3>Pant Measurements</h3>
+                <div class="measurement-grid">
+                    {% for field in ["Pant Waist","Hip","Length","Thigh","Bottom"] %}
+                    <div><label>{{ field }}</label><input name="{{ field|lower|replace(' ','_') }}"></div>
+                    {% endfor %}
+                </div>
+            </section>
+
+            <div class="stitch-line"></div>
+
+            <div class="billing">
+                <div class="billing-row"><span>Shirt</span><strong id="shirtSubtotal">₹350</strong></div>
+                <div class="billing-row"><span>Pant</span><strong id="pantSubtotal">₹0</strong></div>
+                <div class="billing-row total"><span>Total Amount</span><strong id="totalAmount">₹350</strong></div>
+                <div class="form-grid two">
+                    <div><label>Paid</label><input name="paid" id="paid" type="number" min="0" step="1" value="0"></div>
+                    <div><label>Balance</label><input id="balance" type="number" readonly value="350"></div>
+                </div>
+                <div><label>Delivery Date</label><input name="delivery_date" type="date" required></div>
+            </div>
+
+            <button class="gold-btn wide" type="submit">Save Order</button>
+        </form>
+    </div>
+</div>
+{% endblock %}

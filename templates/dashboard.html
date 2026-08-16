@@ -1,0 +1,29 @@
+{% extends "base.html" %}
+{% block content %}
+<div class="page">
+    <div class="page-heading">
+        <div><div class="eyebrow">WORKSPACE</div><h1>Dashboard</h1></div>
+        <a href="{{ url_for('new_customer') }}" class="gold-btn">＋ New Customer</a>
+    </div>
+
+    <div class="metric-grid">
+        <a href="{{ url_for('sales') }}" class="metric-card"><span>Today's Sale</span><strong>₹{{ "%.0f"|format(stats.today_sales) }}</strong></a>
+        <a href="{{ url_for('pending_orders') }}" class="metric-card"><span>Pending Orders</span><strong>{{ stats.pending }}</strong></a>
+        <a href="{{ url_for('completed_orders') }}" class="metric-card"><span>Completed Orders</span><strong>{{ stats.completed }}</strong></a>
+        <a href="{{ url_for('orders') }}" class="metric-card"><span>Total Orders</span><strong>{{ stats.total }}</strong></a>
+        <a href="{{ url_for('expenses') }}" class="metric-card"><span>Today's Expenses</span><strong>₹{{ "%.0f"|format(stats.expenses) }}</strong></a>
+        <a href="{{ url_for('monthly_revenue') }}" class="metric-card"><span>Monthly Revenue</span><strong>₹{{ "%.0f"|format(stats.today_sales) }}</strong></a>
+    </div>
+
+    <div class="dashboard-links">
+        <a href="{{ url_for('new_customer') }}">New Customer <span>→</span></a>
+        <a href="{{ url_for('pending_orders') }}">Pending Orders <span>→</span></a>
+        <a href="{{ url_for('completed_orders') }}">Completed Orders <span>→</span></a>
+        <a href="{{ url_for('sales') }}">Today's Sale <span>→</span></a>
+        <a href="{{ url_for('orders') }}">Total Orders <span>→</span></a>
+        <a href="{{ url_for('weekly_sales') }}">Weekly Sales <span>→</span></a>
+        <a href="{{ url_for('expenses') }}">Expenses <span>→</span></a>
+        <a href="{{ url_for('monthly_revenue') }}">Monthly Revenue <span>→</span></a>
+    </div>
+</div>
+{% endblock %}
